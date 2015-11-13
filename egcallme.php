@@ -30,6 +30,10 @@ if (!defined('_PS_VERSION_'))
 	{
 		
 		$output = null;
+		/**
+		 * 
+		 * 
+		 */
 		return $output = "configuration";
 	}
 	
@@ -126,7 +130,7 @@ if (!defined('_PS_VERSION_'))
 	    return false;
 	  return true;
 	}	
-
+ 
 	
   	public function reset()
 	{
