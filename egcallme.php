@@ -4,7 +4,7 @@
 *  @copyright  2015 Evgeny grishin
 */
 
-if (!defined('_PS_VERSION_')){
+if (!defined('_PS_VERSION_')) {
   exit;
 } 
 class Egcallme extends Module
@@ -300,10 +300,10 @@ class Egcallme extends Module
 	{
 		if ($keep)
 			{
-				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)){
+				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
 					return false;
 				}
-				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)){
+				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
 					return false;
 				}
 				$sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
@@ -311,7 +311,7 @@ class Egcallme extends Module
 	
 				foreach ($sql as $query)
 				{
-					if (!Db::getInstance()->execute(trim($query))){
+					if (!Db::getInstance()->execute(trim($query))) {
 						return false;
 					}
 				}
