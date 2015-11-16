@@ -482,9 +482,9 @@
         -o-animation: 1.2s ease-in-out 0s normal none infinite running cbh-circle-img-anim;
         animation: cbh-circle-img-anim 1.2s ease-in-out 0s normal none infinite running ;
         position: absolute !important;
-        background-color: #{$phone_color|escape:'htmlall':'UTF-8} !important;
-        background-color: rgba({$rgb[0]|escape:'htmlall':'UTF-8}, {$rgb[1]|escape:'htmlall':'UTF-8}, {$rgb[2]|escape:'htmlall':'UTF-8}, 0.8) !important;
-        background-color: rgba({$rgb[0]|escape:'htmlall':'UTF-8}, {$rgb[1]|escape:'htmlall':'UTF-8}, {$rgb[2]|escape:'htmlall':'UTF-8}, 0.8) !important;
+        background-color: #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        background-color: rgba({$rgb[0]|escape:'htmlall':'UTF-8'}, {$rgb[1]|escape:'htmlall':'UTF-8'}, {$rgb[2]|escape:'htmlall':'UTF-8'}, 0.8) !important;
+        background-color: rgba({$rgb[0]|escape:'htmlall':'UTF-8'}, {$rgb[1]|escape:'htmlall':'UTF-8'}, {$rgb[2]|escape:'htmlall':'UTF-8'}, 0.8) !important;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAJKSURBVHja7Nk7aBRRFIDh/8QHPvBBQNTGRgVNZ7AI2Ai+sBOLiAabINgKirWCjQQRQUtLC8FCgoUprERsVLAzRhAUo60WIWrgt3BFXTK7i9nZZJxz4DZzL7tzv7mvMxMqGb+jLwkSJEESJEESJEESJEESJEESJEESJEESJEESJCNBeggSEV0pwHbgOTALjAHLmurLCbWrpUv3tEF97d/xUF1X1n3/Kkt1ytwAdjZdOwJMqGtK/eelNkLUQ7aOm2WOkOj2d5mFzm/1BbCnVRNgAHj13+8y6mAbDIAARuuy7e7osN2BuoC8bEyJdrGrFiARMQmc76BpaTvNkltUG2vJCeA2sLagySywujZH94i4Cxxt0WSqdrlMRDwGJguqn9YORO0DthZUj9cx2z0GrJ/n+jQwUSsQdRVwpaD6ekTM1W2EXAV2z3P9HXCrbsndSIvE7njZ6X9PQNSN6pYOMPapXwsw7pX5IHsCom5W76hzjU49UjcVYAypnwsw3qv9lQZRB9VP83RuSt3W1LlT6kwBxqw6VPZULxVEPah+abEWfFTPqMPqeJsXQiO9WPtKe0EEHAYeACu68FsXIuJaEUglkjvgDT/fmC80LkfEpVa7Y1VAZrqQiV6MiLF2x4WqHMzOLRDzZDuMyh3M1NE/ttpO45k6sFj33Yttd7/6tgOIafWsunwxH2RPPkOoK4HTwDCwF+gHvgMfgCeNNP5+RHz7l5FdlUW10pFf/xMkQRIkQRIkQRIkQRIkQRIkQRIkQRIkQRIkI0FaxI8BAMGiej+TuldEAAAAAElFTkSuQmCC');
         border-radius: 100% !important;
         height: 70px !important;
@@ -505,8 +505,8 @@
         -moz-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-fill-anim;
         -o-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-fill-anim;
         animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-fill-anim;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
         border-radius: 100% !important;
         opacity: 0.5 !important;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)" !important;
@@ -523,8 +523,8 @@
         -moz-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-anim;
         -o-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-anim;
         animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-anim;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
         border-radius: 100% !important;
         width: 100px !important;
         height: 100px !important;
@@ -535,13 +535,13 @@
     }
 
     .pozvonim-button:hover .pozvonim-button-border-inner {
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
     }
 
     .pozvonim-button:hover .pozvonim-button-border-outer {
         border: 1px solid #b7de69 !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8} !important;
+        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
     }
 
     

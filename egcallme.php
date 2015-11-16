@@ -3,11 +3,12 @@
 *  @author Evgeny Grishin <e.v.grishin@yandex.ru>
 *  @copyright  2015 Evgeny grishin
 */
+
 if (!defined('_PS_VERSION_'))
   exit;
   
-  class egcallme extends Module
-  {
+class Egcallme extends Module
+{
 	const INSTALL_SQL_FILE = 'install.sql';
 	const INSTALL_SQL_BD1NAME = 'egcallme';
 	private $html = '';
@@ -232,7 +233,9 @@ if (!defined('_PS_VERSION_'))
   	public function hookHeader($params)
 	{
 		if (Configuration::get('EGCALLME_PHONE_MASK'))
-			$this->context->controller->addJS($this->_path.'views/js/jquery.maskedinput.min.js', 'all');		
+		{
+			$this->context->controller->addJS($this->_path.'views/js/jquery.maskedinput.min.js', 'all');
+		}		
 		$this->context->controller->addJS($this->_path.'views/js/callme.js', 'all');
 		$this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');		
 	}
@@ -297,16 +300,15 @@ if (!defined('_PS_VERSION_'))
 	{
 		if ($keep)
 			{
-				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE))
-					return false;
-				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE))
-					return false;
+				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) return false;
+				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) return false;
 				$sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
 				$sql = preg_split("/;\s*[\r\n]+/", trim($sql));
 	
 				foreach ($sql as $query)
-					if (!Db::getInstance()->execute(trim($query)))
-						return false;
+				{
+					if (!Db::getInstance()->execute(trim($query))) return false;
+				}
 	
 			}
 			
