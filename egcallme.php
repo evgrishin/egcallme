@@ -232,8 +232,7 @@ if (!defined('_PS_VERSION_'))
 		if (Configuration::get('EGCALLME_PHONE_MASK'))
 			$this->context->controller->addJS($this->_path.'views/js/jquery.maskedinput.min.js', 'all');		
 		$this->context->controller->addJS($this->_path.'views/js/callme.js', 'all');
-		$this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');
-		$this->context->controller->addCSS($this->_path.'views/css/callme.css', 'all');		
+		$this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');		
 	}
 	
 
