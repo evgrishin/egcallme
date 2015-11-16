@@ -1,5 +1,5 @@
 <?php
-/*
+/**
 *  @author Evgeny Grishin <e.v.grishin@yandex.ru>
 *  @copyright  2015 Evgeny grishin
 */

@@ -1,6 +1,7 @@
 /**
- * 
- */
+*  @author Evgeny Grishin <e.v.grishin@yandex.ru>
+*  @copyright  2015 Evgeny grishin
+*/
 $(document).ready(function() { 
 	
 	$(document).on('click', '.eg_callme_btn', function(e){
