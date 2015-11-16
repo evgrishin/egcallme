@@ -1,4 +1,4 @@
-﻿
+
 {if $view=="form"}
 <div id="eg_callmemess"></div>
 <form id="eg_callmeform" name="eg_callmeform" action="#" method="post">
