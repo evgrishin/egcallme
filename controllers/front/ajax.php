@@ -95,6 +95,3 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
 	}
 	
 }
-
-
-?>

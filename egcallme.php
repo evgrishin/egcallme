@@ -5,14 +5,14 @@
 */
 
 if (!defined('_PS_VERSION_')) {
-  exit;
-} 
+	exit;
+}
 class Egcallme extends Module
 {
 	const INSTALL_SQL_FILE = 'install.sql';
 	const INSTALL_SQL_BD1NAME = 'egcallme';
 	private $html = '';
-	
+
 	/**
 	 * 1)translations
 	 * 2)tab for maintanence
@@ -29,16 +29,16 @@ class Egcallme extends Module
 	    $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_); 
 	    $this->bootstrap = true;
 	    $this->html = '';
-	 
+
 	    parent::__construct();
-	 
+
 	    $this->displayName = $this->l('Call me addon');
 	    $this->description = $this->l('Addon for callback.');
-	 
+
 	    $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
-	 
+
   	}	
-  	
+
   	public function getContent()
 	{
 		if (Tools::isSubmit('submitEgcallme'))
@@ -57,10 +57,9 @@ class Egcallme extends Module
 		$this->html .= $this->renderForm();
 		return $this->html;
 	}
-	
+
 	private function renderForm()
 	{
-		
 		$fields_form1 = array(
 			'form' => array(
 				'legend' => array(
@@ -214,7 +213,7 @@ class Egcallme extends Module
 
 		return $helper->generateForm(array($fields_form1, $fields_form2, $fields_form3));		
 	}
-	
+
   	public function getConfigFieldsValues()
 	{
 		return array(
@@ -239,13 +238,11 @@ class Egcallme extends Module
 		$this->context->controller->addJS($this->_path.'views/js/callme.js', 'all');
 		$this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');		
 	}
-	
 
-	
 	public function hookDisplayNav($params)
 	{
  		$this->smarty->assign(array(
- 			'btn_view' => Configuration::get('EGCALLME_BTN_VIEW'), 		
+ 			'btn_view' => Configuration::get('EGCALLME_BTN_VIEW'),
  			'phone_tube' => Configuration::get('EGCALLME_PHONE_TUBE'),
  			'btn_self' => Configuration::get('EGCALLME_BTN_SELF'),
  			'mask' => Configuration::get('EGCALLME_PHONE_MASK'),
@@ -253,34 +250,33 @@ class Egcallme extends Module
 			'ajaxcontroller' => $this->context->link->getModuleLink($this->name, 'ajax'),
  			'rgb' => egcallme::hex2rgb(Configuration::get('EGCALLME_PHONE_TUBE_C')),
 		));
-	
-		return $this->display(__FILE__, 'main_hook.tpl');	
+
+		return $this->display(__FILE__, 'main_hook.tpl');
 	}
-	
-	
+
+
 	public function hookDisplayTop($params)
 	{
 		return $this->hookDisplayNav($params);
 	}
-	
+
   	public function hookDisplayLeftColumn($params)
-	{		
-		
-		return $this->hookDisplayNav($params);	
+	{	
+		return $this->hookDisplayNav($params);
 	}
 
 	public function hookDisplayRightColumn($params)
 	{
-		
-		return $this->hookDisplayNav($params);	
-	}	
-	
+		return $this->hookDisplayNav($params);
+	}
+
 	public static function getModuleDir()
 	{
 		return dirname(__FILE__);
 	}
-	
-	public static function hex2rgb($hex) {
+
+	public static function hex2rgb($hex)
+	{
 		$hex = str_replace("#", "", $hex);
 		if(Tools::strlen($hex) == 3) {
 			$r = hexdec(Tools::substr($hex,0,1).Tools::substr($hex,0,1));
@@ -308,22 +304,22 @@ class Egcallme extends Module
 				}
 				$sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
 				$sql = preg_split("/;\s*[\r\n]+/", trim($sql));
-	
+
 				foreach ($sql as $query)
 				{
 					if (!Db::getInstance()->execute(trim($query))) {
 						return false;
 					}
 				}
-	
+
 			}
-			
+
 	  if (!parent::install() ||
 	  	!$this->registerHook('displayNav') ||
 		!$this->registerHook('header') ||
 		!Configuration::updateValue('EGCALLME_BTN_VIEW', 'Link')||//Hide|Link|Button|Self
 		!Configuration::updateValue('EGCALLME_BTN_SELF', '<div class="clearfix pull-left"><button class="eg_callme_btn" type="button">Custom callback button</button></div>')||//textarea code
-		!Configuration::updateValue('EGCALLME_PHONE_MASK', '+4 (999) 999-99-99')||				
+		!Configuration::updateValue('EGCALLME_PHONE_MASK', '+4 (999) 999-99-99')||
 		!Configuration::updateValue('EGCALLME_PHONE_TUBE', 'Show')||//Hide|Show|Animation
 		!Configuration::updateValue('EGCALLME_PHONE_TUBE_C', '68cafa')||//Color
 		!Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', 'first.mail@domain.com; second.mail@domain.com')||//list of emails ";"
@@ -333,18 +329,18 @@ class Egcallme extends Module
 		)
 	    return false;
 	  return true;
-	}  	
-	
+	}
+
 	public function uninstall($keep = true)
 	{
 	  if (!parent::uninstall() || ($keep && !$this->deleteTables()) ||
 			!Configuration::deleteByName('EGCALLME_BTN_VIEW') ||
 			!Configuration::deleteByName('EGCALLME_BTN_SELF') ||
-			!Configuration::deleteByName('EGCALLME_PHONE_MASK') ||				  
+			!Configuration::deleteByName('EGCALLME_PHONE_MASK') ||
 			!Configuration::deleteByName('EGCALLME_PHONE_TUBE') ||
 			!Configuration::deleteByName('EGCALLME_PHONE_TUBE_C') ||
 			!Configuration::deleteByName('EGCALLME_EMAIL_NOTIFY')||
-			!Configuration::deleteByName('EGCALLME_FIELD_FNAME')|| 			
+			!Configuration::deleteByName('EGCALLME_FIELD_FNAME')||
 			!Configuration::deleteByName('EGCALLME_FIELD_LNAME') ||
 			!Configuration::deleteByName('EGCALLME_FIELD_MESS') ||
 			!$this->unregisterHook('displayTop') ||
@@ -355,8 +351,8 @@ class Egcallme extends Module
 			!$this->unregisterHook('header'))
 	    return false;
 	  return true;
-	}	
- 
+	}
+
 	
   	public function reset()
 	{
@@ -365,13 +361,13 @@ class Egcallme extends Module
 		if (!$this->install(false))
 			return false;
 		return true;
-	}	
-	
+	}
+
 	public function deleteTables()
 	{
 		return Db::getInstance()->execute('
 			DROP TABLE IF EXISTS
 			`'._DB_PREFIX_.self::INSTALL_SQL_BD1NAME.'`');
-	}		
-  	
-  }
+	}
+
+}
