@@ -31,7 +31,10 @@ class egcallmeajaxModuleFrontController extends ModuleFrontController
 		$this->context->smarty->assign(array(
 					'ajaxcontroller' => $this->context->link->getModuleLink('egcallme', 'ajax'),
 					'mask' => Configuration::get('EGCALLME_PHONE_MASK'),
-					'view' =>	$view
+					'fname' => Configuration::get('EGCALLME_FIELD_FNAME'),
+					'lname' => Configuration::get('EGCALLME_FIELD_LNAME'),
+					'mess' => Configuration::get('EGCALLME_FIELD_MESS'),
+					'view' => $view
 				)); 
 
 		$this->smartyOutputContent($this->getTemplatePath('ajax.tpl'));
@@ -40,8 +43,6 @@ class egcallmeajaxModuleFrontController extends ModuleFrontController
 
 	private function newMessage($phone, $fname, $lname, $message, $context)
 	{
-
-		//$phone = preg_replace('#\D+#', '', $phone);
 		// insert to DB
 		$query = "insert into "._DB_PREFIX_.egcallme::INSTALL_SQL_BD1NAME." 
 		(`id_shop`, `phone`, `fname`,`lname`, `message`) 
@@ -52,7 +53,7 @@ class egcallmeajaxModuleFrontController extends ModuleFrontController
 		// notify by email
 		$emails_param = Configuration::get('EGCALLME_EMAIL_NOTIFY');
 
-		if (trim($email_param)!="")
+		if (trim($emails_param)!="")
 		{	
 			$param = array(
 				'{phone}'	=> $phone,
@@ -61,27 +62,30 @@ class egcallmeajaxModuleFrontController extends ModuleFrontController
 				'{lname}'	=> $lname
 			);
 				
-			$emails = explode(';', $email_param);
+			$emails = explode(';', $emails_param);
+			
+			$dir = egcallme::getModuleDir().'/mails/';
 				
 			foreach ($emails as $email)
 			{
-				/*
+				
+				$email_theme = "email_notify";
 				Mail::Send(
 					(int)$context->language->id,
 					$email_theme,
-					Mail::l($type, " ".$phone." ".$host),
+					Mail::l("NEW Callback ".$phone, $this->context->language->id),
 					$param,
 					$email,
-					$cname,
+					"",
 					null,
 					null,
 					null,
 					null,
-					_PS_MAIL_DIR_,
+					$dir,
 					false,
 					(int)$context->shop->id
 				);
-				*/
+				
 			}
 		}
 
