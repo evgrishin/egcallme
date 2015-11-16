@@ -5,8 +5,9 @@
 */
 
 if (!defined('_PS_VERSION_'))
+{
   exit;
-  
+} 
 class Egcallme extends Module
 {
 	const INSTALL_SQL_FILE = 'install.sql';
@@ -300,14 +301,23 @@ class Egcallme extends Module
 	{
 		if ($keep)
 			{
-				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) return false;
-				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) return false;
+				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) 
+				{
+					return false;
+				}
+				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) 
+				{
+					return false;
+				}
 				$sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
 				$sql = preg_split("/;\s*[\r\n]+/", trim($sql));
 	
 				foreach ($sql as $query)
 				{
-					if (!Db::getInstance()->execute(trim($query))) return false;
+					if (!Db::getInstance()->execute(trim($query))) 
+					{
+						return false;
+					}
 				}
 	
 			}
