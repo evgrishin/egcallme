@@ -55,8 +55,6 @@ if (!defined('_PS_VERSION_'))
 	
 	private function renderForm()
 	{
-
-		$c = CMS::listCms($this->context->language->id);
 		
 		$fields_form1 = array(
 			'form' => array(
@@ -277,16 +275,16 @@ if (!defined('_PS_VERSION_'))
 	
 	public static function hex2rgb($hex) {
 		$hex = str_replace("#", "", $hex);
-		if(strlen($hex) == 3) {
-			$r = hexdec(substr($hex,0,1).substr($hex,0,1));
-			$g = hexdec(substr($hex,1,1).substr($hex,1,1));
-			$b = hexdec(substr($hex,2,1).substr($hex,2,1));
+		if(Tools::strlen($hex) == 3) {
+			$r = hexdec(Tools::substr($hex,0,1).Tools::substr($hex,0,1));
+			$g = hexdec(Tools::substr($hex,1,1).Tools::substr($hex,1,1));
+			$b = hexdec(Tools::substr($hex,2,1).Tools::substr($hex,2,1));
 		}
 		else
 		{
-			$r = hexdec(substr($hex,0,2));
-			$g = hexdec(substr($hex,2,2));
-			$b = hexdec(substr($hex,4,2));
+			$r = hexdec(Tools::substr($hex,0,2));
+			$g = hexdec(Tools::substr($hex,2,2));
+			$b = hexdec(Tools::substr($hex,4,2));
 			}
 		return array($r, $g, $b);
 	}
@@ -297,7 +295,7 @@ if (!defined('_PS_VERSION_'))
 			{
 				if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE))
 					return false;
-				else if (!$sql = file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE))
+				else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE))
 					return false;
 				$sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
 				$sql = preg_split("/;\s*[\r\n]+/", trim($sql));
