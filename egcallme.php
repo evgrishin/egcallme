@@ -279,43 +279,40 @@ class Egcallme extends Module
     {
         $hex = str_replace("#", "", $hex);
         if(Tools::strlen($hex) == 3) {
-            $r = hexdec(Tools::substr($hex,0,1).Tools::substr($hex,0,1));
-            $g = hexdec(Tools::substr($hex,1,1).Tools::substr($hex,1,1));
-            $b = hexdec(Tools::substr($hex,2,1).Tools::substr($hex,2,1));
-        }
-        else
-        {
-            $r = hexdec(Tools::substr($hex,0,2));
-            $g = hexdec(Tools::substr($hex,2,2));
-            $b = hexdec(Tools::substr($hex,4,2));
+            $r = hexdec(Tools::substr($hex, 0, 1).Tools::substr($hex, 0, 1));
+            $g = hexdec(Tools::substr($hex, 1, 1).Tools::substr($hex, 1, 1));
+            $b = hexdec(Tools::substr($hex, 2, 1).Tools::substr($hex, 2, 1));
+        }else{
+            $r = hexdec(Tools::substr($hex, 0, 2));
+            $g = hexdec(Tools::substr($hex, 2, 2));
+            $b = hexdec(Tools::substr($hex, 4, 2));
             }
         return array($r, $g, $b);
     }
 
     public function install($keep = true)
     {
-        if ($keep)
+        if ($keep) {
+            if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
+                return false;
+            }
+            else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
+                return false;
+            }
+            $sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
+            $sql = preg_split("/;\s*[\r\n]+/", trim($sql));
+
+            foreach ($sql as $query)
             {
-                if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
+                if (!Db::getInstance()->execute(trim($query))) {
                     return false;
                 }
-                else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
-                    return false;
-                }
-                $sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
-                $sql = preg_split("/;\s*[\r\n]+/", trim($sql));
-
-                foreach ($sql as $query)
-                {
-                    if (!Db::getInstance()->execute(trim($query))) {
-                        return false;
-                    }
-                }
-
             }
 
-      if (!parent::install() ||
-          !$this->registerHook('displayNav') ||
+        }
+
+        if (!parent::install() ||
+        !$this->registerHook('displayNav') ||
         !$this->registerHook('header') ||
         !Configuration::updateValue('EGCALLME_BTN_VIEW', 'Link')||//Hide|Link|Button|Self
         !Configuration::updateValue('EGCALLME_BTN_SELF', '<div class="clearfix pull-left"><button class="eg_callme_btn" type="button">Custom callback button</button></div>')||//textarea code
