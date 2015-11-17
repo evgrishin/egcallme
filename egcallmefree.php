@@ -3,10 +3,8 @@
 *  @author Evgeny Grishin <e.v.grishin@yandex.ru>
 *  @copyright  2015 Evgeny grishin
 */
+if (!defined('_PS_VERSION_')) exit;
 
-if (!defined('_PS_VERSION_')) {
-    exit;
-}
 class EgcallmeFree extends Module
 {
     private $html = '';
@@ -111,7 +109,8 @@ class EgcallmeFree extends Module
         $helper->table = $this->table;
         $lang = new Language((int)Configuration::get('PS_LANG_DEFAULT'));
         $helper->default_form_language = $lang->id;
-        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
+        $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ?
+         Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
 
         $helper->identifier = $this->identifier;
         $helper->submit_action = 'submitEgcallmeFree';
