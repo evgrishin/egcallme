@@ -4,226 +4,14 @@
 *}
 {strip}
 {addJsDef egcallme_ajaxcontroller=$ajaxcontroller}
-{if $mask!=''}
-{addJsDef egcallme_mask=$mask}
-{/if}	
 {/strip}
-{if $btn_view=='Link'}
-<div class="clearfix pull-left">
-	<a class="eg_callme_btn" href="#" rel="#">{l s='call me order' mod='egcallme'}</a>
-</div>
-{/if}
-{if $btn_view=='Button'}
+{if $btn_view=='Show'}
 <div class="clearfix pull-left">
 	<button class="eg_callme_btn" type="button">{l s='call me order' mod='egcallme'}</button>
 </div>
 {/if}
-{if $btn_view=='Self'}
-{*$btn_self|escape:'quotes':'UTF-8'*}
-{/if}
-{if $phone_tube=='Show' or  $phone_tube=='Animation'}
+{if $phone_tube=='Show'}
 <style type="text/css">
-{if $phone_tube=='Animation'}
-    @keyframes cbh-circle-anim {
-        0% {
-            transform: scale(1);
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-            -ms-transform: scale(1);
-        }
-        40% {
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-            opacity: 0.9;
-            transform: scale(1.2);
-            -webkit-transform: scale(1.2);
-            -moz-transform: scale(1.2);
-            -o-transform: scale(1.2);
-            -ms-transform: scale(1.2);
-        }
-        100% {
-            transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-            -moz-transform: scale(1.5);
-            -o-transform: scale(1.5);
-            -ms-transform: scale(1.5);
-        }
-    }
-
-    @keyframes cbh-circle-fill-anim {
-        0%, 100% {
-            transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-            -moz-transform: scale(1.5);
-            -o-transform: scale(1.5);
-            -ms-transform: scale(1.5);
-        }
-        40% {
-            transform: scale(1);
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-            -ms-transform: scale(1);
-        }
-    }
-
-    @keyframes cbh-circle-img-anim {
-        0%, 50%, 100% {
-            transform: rotate(0deg);
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-        }
-        10%, 30% {
-            transform: rotate(-25deg);
-            -webkit-transform: rotate(-25deg);
-            -moz-transform: rotate(-25deg);
-            -o-transform: rotate(-25deg);
-            -ms-transform: rotate(-25deg);
-        }
-        20%, 40% {
-            transform: rotate(25deg);
-            -webkit-transform: rotate(25deg);
-            -moz-transform: rotate(25deg);
-            -o-transform: rotate(25deg);
-            -ms-transform: rotate(25deg);
-        }
-    }
-
-    @-webkit-keyframes cbh-circle-anim {
-        0% {
-            transform: scale(1);
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-            -ms-transform: scale(1);
-        }
-        40% {
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-            opacity: 0.9;
-            transform: scale(1.2);
-            -webkit-transform: scale(1.2);
-            -moz-transform: scale(1.2);
-            -o-transform: scale(1.2);
-            -ms-transform: scale(1.2);
-        }
-        100% {
-            transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-            -moz-transform: scale(1.5);
-            -o-transform: scale(1.5);
-            -ms-transform: scale(1.5);
-        }
-    }
-
-    @-webkit-keyframes cbh-circle-fill-anim {
-        0%, 100% {
-            transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-            -moz-transform: scale(1.5);
-            -o-transform: scale(1.5);
-            -ms-transform: scale(1.5);
-        }
-        40% {
-            transform: scale(1);
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-            -ms-transform: scale(1);
-        }
-    }
-
-    @-webkit-keyframes cbh-circle-img-anim {
-        0%, 50%, 100% {
-            transform: rotate(0deg);
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-        }
-        10%, 30% {
-            transform: rotate(-25deg);
-            -webkit-transform: rotate(-25deg);
-            -moz-transform: rotate(-25deg);
-            -o-transform: rotate(-25deg);
-            -ms-transform: rotate(-25deg);
-        }
-        20%, 40% {
-            transform: rotate(25deg);
-            -webkit-transform: rotate(25deg);
-            -moz-transform: rotate(25deg);
-            -o-transform: rotate(25deg);
-            -ms-transform: rotate(25deg);
-        }
-    }
-
-    @-moz-keyframes cbh-circle-anim {
-        0% {
-            transform: scale(1);
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-            -ms-transform: scale(1);
-        }
-        40% {
-            -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
-            opacity: 0.9;
-            transform: scale(1.2);
-            -webkit-transform: scale(1.2);
-            -moz-transform: scale(1.2);
-            -o-transform: scale(1.2);
-            -ms-transform: scale(1.2);
-        }
-        100% {
-            transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-            -moz-transform: scale(1.5);
-            -o-transform: scale(1.5);
-            -ms-transform: scale(1.5);
-        }
-    }
-
-    @-moz-keyframes cbh-circle-fill-anim {
-        0%, 100% {
-            transform: scale(1.5);
-            -webkit-transform: scale(1.5);
-            -moz-transform: scale(1.5);
-            -o-transform: scale(1.5);
-            -ms-transform: scale(1.5);
-        }
-        40% {
-            transform: scale(1);
-            -webkit-transform: scale(1);
-            -moz-transform: scale(1);
-            -o-transform: scale(1);
-        }
-    }
-
-    @-moz-keyframes cbh-circle-img-anim {
-        0%, 50%, 100% {
-            transform: rotate(0deg);
-            -webkit-transform: rotate(0deg);
-            -moz-transform: rotate(0deg);
-            -o-transform: rotate(0deg);
-            -ms-transform: rotate(0deg);
-        }
-        10%, 30% {
-            transform: rotate(-25deg);
-            -webkit-transform: rotate(-25deg);
-            -moz-transform: rotate(-25deg);
-            -o-transform: rotate(-25deg);
-            -ms-transform: rotate(-25deg);
-        }
-        20%, 40% {
-            transform: rotate(25deg);
-            -webkit-transform: rotate(25deg);
-            -moz-transform: rotate(25deg);
-            -o-transform: rotate(25deg);
-            -ms-transform: rotate(25deg);
-        }
-    }
-{/if}
     #pozvonim-cover *,
     #pozvonim-cover *::before,
     #pozvonim-cover *::after,
@@ -482,7 +270,7 @@
         -o-animation: 1.2s ease-in-out 0s normal none infinite running cbh-circle-img-anim;
         animation: cbh-circle-img-anim 1.2s ease-in-out 0s normal none infinite running ;
         position: absolute !important;
-        background-color: #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        background-color: #68cafa !important;
         background-color: rgba({$rgb[0]|escape:'htmlall':'UTF-8'}, {$rgb[1]|escape:'htmlall':'UTF-8'}, {$rgb[2]|escape:'htmlall':'UTF-8'}, 0.8) !important;
         background-color: rgba({$rgb[0]|escape:'htmlall':'UTF-8'}, {$rgb[1]|escape:'htmlall':'UTF-8'}, {$rgb[2]|escape:'htmlall':'UTF-8'}, 0.8) !important;
         background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEQAAABECAYAAAA4E5OyAAAACXBIWXMAAAsTAAALEwEAmpwYAAAAIGNIUk0AAHolAACAgwAA+f8AAIDpAAB1MAAA6mAAADqYAAAXb5JfxUYAAAJKSURBVHja7Nk7aBRRFIDh/8QHPvBBQNTGRgVNZ7AI2Ai+sBOLiAabINgKirWCjQQRQUtLC8FCgoUprERsVLAzRhAUo60WIWrgt3BFXTK7i9nZZJxz4DZzL7tzv7mvMxMqGb+jLwkSJEESJEESJEESJEESJEESJEESJEESJEESJCNBeggSEV0pwHbgOTALjAHLmurLCbWrpUv3tEF97d/xUF1X1n3/Kkt1ytwAdjZdOwJMqGtK/eelNkLUQ7aOm2WOkOj2d5mFzm/1BbCnVRNgAHj13+8y6mAbDIAARuuy7e7osN2BuoC8bEyJdrGrFiARMQmc76BpaTvNkltUG2vJCeA2sLagySywujZH94i4Cxxt0WSqdrlMRDwGJguqn9YORO0DthZUj9cx2z0GrJ/n+jQwUSsQdRVwpaD6ekTM1W2EXAV2z3P9HXCrbsndSIvE7njZ6X9PQNSN6pYOMPapXwsw7pX5IHsCom5W76hzjU49UjcVYAypnwsw3qv9lQZRB9VP83RuSt3W1LlT6kwBxqw6VPZULxVEPah+abEWfFTPqMPqeJsXQiO9WPtKe0EEHAYeACu68FsXIuJaEUglkjvgDT/fmC80LkfEpVa7Y1VAZrqQiV6MiLF2x4WqHMzOLRDzZDuMyh3M1NE/ttpO45k6sFj33Yttd7/6tgOIafWsunwxH2RPPkOoK4HTwDCwF+gHvgMfgCeNNP5+RHz7l5FdlUW10pFf/xMkQRIkQRIkQRIkQRIkQRIkQRIkQRIkQRIkI0FaxI8BAMGiej+TuldEAAAAAElFTkSuQmCC');
@@ -505,8 +293,8 @@
         -moz-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-fill-anim;
         -o-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-fill-anim;
         animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-fill-anim;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #68cafa !important;
+        border: 1px solid #68cafa !important;
         border-radius: 100% !important;
         opacity: 0.5 !important;
         -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)" !important;
@@ -523,8 +311,8 @@
         -moz-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-anim;
         -o-animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-anim;
         animation: 2.3s ease-in-out 0s normal none infinite running cbh-circle-anim;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #68cafa !important;
+        border: 1px solid #68cafa !important;
         border-radius: 100% !important;
         width: 100px !important;
         height: 100px !important;
@@ -535,13 +323,13 @@
     }
 
     .pozvonim-button:hover .pozvonim-button-border-inner {
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #68cafa !important;
+        border: 1px solid #68cafa !important;
     }
 
     .pozvonim-button:hover .pozvonim-button-border-outer {
         border: 1px solid #b7de69 !important;
-        border: 1px solid #{$phone_color|escape:'htmlall':'UTF-8'} !important;
+        border: 1px solid #68cafa !important;
     }
 
     
