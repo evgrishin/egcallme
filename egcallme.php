@@ -324,8 +324,8 @@ class Egcallme extends Module
         !Configuration::updateValue('EGCALLME_FIELD_LNAME', 'Required')||//Hide|Show|Required
         !Configuration::updateValue('EGCALLME_FIELD_MESS', 'Required')//Hide|Show|Required
         )
-        return false;
-      return true;
+            return false;
+        return true;
     }
 
     public function uninstall($keep = true)
