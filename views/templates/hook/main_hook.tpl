@@ -3,11 +3,11 @@
 *  @copyright  2015 Evgeny grishin
 *}
 {strip}
-{addJsDef egcallme_ajaxcontroller=$ajaxcontroller}
+{addJsDef egcallmefree_ajaxcontroller=$ajaxcontroller}
 {/strip}
 {if $btn_view=='Show'}
 <div class="clearfix pull-left">
-	<button class="eg_callme_btn" type="button">{l s='call me order' mod='egcallme'}</button>
+	<button class="eg_callme_btn" type="button">{l s='call me order' mod='egcallmefree'}</button>
 </div>
 {/if}
 {if $phone_tube=='Show'}
@@ -16,7 +16,7 @@
         <div class="pozvonim-button-border-inner"></div>
         <div class="pozvonim-button-border-outer"></div>
         <div class="pozvonim-button-text">
-            <span class="pozvonim-button-center-text">{l s='Free callback' mod='egcallme'}</span>
+            <span class="pozvonim-button-center-text">{l s='Free callback' mod='egcallmefree'}</span>
         </div>
         <div class="pozvonim-button-phone"></div>
     </div>

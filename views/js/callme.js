@@ -6,13 +6,13 @@ $(document).ready(function() {
 	
 	$(document).on('click', '.eg_callme_btn', function(e){
 		e.preventDefault();
-		var egcallme_ajaxcontroller_url
-		egcallme_ajaxcontroller_url = egcallme_ajaxcontroller+"?ajax";
+		var egcallmefree_ajaxcontroller_url
+		egcallmefree_ajaxcontroller_url = egcallmefree_ajaxcontroller+"?ajax";
 
 		if (!!$.prototype.fancybox)
 				$.fancybox({
 					'type':     'ajax',
-					'href':     egcallme_ajaxcontroller_url
+					'href':     egcallmefree_ajaxcontroller_url
 				});	
 
 	});	
@@ -26,7 +26,7 @@ $(document).ready(function() {
 	    
 		    $.ajax({
 		         type: 'POST',
-		         url: egcallme_ajaxcontroller,
+		         url: egcallmefree_ajaxcontroller,
 		         data: eg_form.serialize(),
 		         success: function(data) {
 		        	 eg_form.fadeOut("fast", function(){

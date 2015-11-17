@@ -16,7 +16,7 @@ class EgcallmeFreeajaxModuleFrontController extends ModuleFrontController
         
         $action = Tools::getValue('action');
         
-        
+        $view = '';
         if (!$action) {
             $view = 'form';
         } else {
@@ -29,8 +29,6 @@ class EgcallmeFreeajaxModuleFrontController extends ModuleFrontController
         
         $this->context->smarty->assign(array(
                     'ajaxcontroller' => $this->context->link->getModuleLink('egcallmefree', 'ajax'),
-                    'fname' => Configuration::get('EGCALLMEFREE_FIELD_FNAME'),
-                    'mess' => Configuration::get('EGCALLMEFREE_FIELD_MESS'),
                     'view' => $view
                 ));
 
