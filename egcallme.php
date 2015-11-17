@@ -33,12 +33,12 @@ class EgcallmeFree extends Module
 
     public function getContent()
     {
-        if (Tools::isSubmit('submitEgcallme')) {
-            Configuration::updateValue('EGCALLME_BTN_VIEW', Tools::getValue('button_type'));
-            Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', Tools::getValue('email_notify'));
-            Configuration::updateValue('EGCALLME_PHONE_TUBE', Tools::getValue('button_type_tube'));
-            Configuration::updateValue('EGCALLME_FIELD_FNAME', Tools::getValue('fname'));
-            Configuration::updateValue('EGCALLME_FIELD_MESS', Tools::getValue('message'));
+        if (Tools::isSubmit('submitEgcallmeFree')) {
+            Configuration::updateValue('EGCALLMEFREE_BTN_VIEW', Tools::getValue('button_type'));
+            Configuration::updateValue('EGCALLMEFREE_EMAIL_NOTIFY', Tools::getValue('email_notify'));
+            Configuration::updateValue('EGCALLMEFREE_PHONE_TUBE', Tools::getValue('button_type_tube'));
+            Configuration::updateValue('EGCALLMEFREE_FIELD_FNAME', Tools::getValue('fname'));
+            Configuration::updateValue('EGCALLMEFREE_FIELD_MESS', Tools::getValue('message'));
             $this->html .= $this->displayConfirmation($this->l('Settings updated.'));
         }
         $this->html .= $this->renderForm();
@@ -114,7 +114,7 @@ class EgcallmeFree extends Module
         $helper->allow_employee_form_lang = Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') ? Configuration::get('PS_BO_ALLOW_EMPLOYEE_FORM_LANG') : 0;
 
         $helper->identifier = $this->identifier;
-        $helper->submit_action = 'submitEgcallme';
+        $helper->submit_action = 'submitEgcallmeFree';
         $helper->currentIndex = $this->context->link->getAdminLink('AdminModules', false).'&configure='.$this->name
             .'&tab_module='.$this->tab.'&module_name='.$this->name;
         $helper->token = Tools::getAdminTokenLite('AdminModules');
@@ -130,9 +130,9 @@ class EgcallmeFree extends Module
     public function getConfigFieldsValues()
     {
         return array(
-            'button_type' => Tools::getValue('button_type', Configuration::get('EGCALLME_BTN_VIEW')),
-            'email_notify' => Tools::getValue('email_notify', Configuration::get('EGCALLME_EMAIL_NOTIFY')),
-            'button_type_tube' => Tools::getValue('button_type_tube', Configuration::get('EGCALLME_PHONE_TUBE')),
+            'button_type' => Tools::getValue('button_type', Configuration::get('EGCALLMEFREE_BTN_VIEW')),
+            'email_notify' => Tools::getValue('email_notify', Configuration::get('EGCALLMEFREE_EMAIL_NOTIFY')),
+            'button_type_tube' => Tools::getValue('button_type_tube', Configuration::get('EGCALLMEFREE_PHONE_TUBE')),
         );
     }
 
@@ -145,8 +145,8 @@ class EgcallmeFree extends Module
     public function hookDisplayNav($params)
     {
          $this->smarty->assign(array(
-             'btn_view' => Configuration::get('EGCALLME_BTN_VIEW'),
-             'phone_tube' => Configuration::get('EGCALLME_PHONE_TUBE'),
+             'btn_view' => Configuration::get('EGCALLMEFREE_BTN_VIEW'),
+             'phone_tube' => Configuration::get('EGCALLMEFREE_PHONE_TUBE'),
              'ajaxcontroller' => $this->context->link->getModuleLink($this->name, 'ajax'),
         ));
 
@@ -179,9 +179,9 @@ class EgcallmeFree extends Module
         if (!parent::install() ||
         !$this->registerHook('displayNav') ||
         !$this->registerHook('header') ||
-        !Configuration::updateValue('EGCALLME_BTN_VIEW', 'Show')||#68cafa
-        !Configuration::updateValue('EGCALLME_PHONE_TUBE', 'Show')||
-        !Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', 'mail@domain.com')
+        !Configuration::updateValue('EGCALLMEFREE_BTN_VIEW', 'Show')||#68cafa
+        !Configuration::updateValue('EGCALLMEFREE_PHONE_TUBE', 'Show')||
+        !Configuration::updateValue('EGCALLMEFREE_EMAIL_NOTIFY', 'mail@domain.com')
         )
             return false;
         return true;
@@ -190,9 +190,9 @@ class EgcallmeFree extends Module
     public function uninstall($keep = true)
     {
       if (!parent::uninstall() || ($keep && !$this->deleteTables()) ||
-            !Configuration::deleteByName('EGCALLME_BTN_VIEW') ||
-            !Configuration::deleteByName('EGCALLME_PHONE_TUBE') ||
-            !Configuration::deleteByName('EGCALLME_EMAIL_NOTIFY')||
+            !Configuration::deleteByName('EGCALLMEFREE_BTN_VIEW') ||
+            !Configuration::deleteByName('EGCALLMEFREE_PHONE_TUBE') ||
+            !Configuration::deleteByName('EGCALLMEFREE_EMAIL_NOTIFY')||
             !$this->unregisterHook('displayTop') ||
             !$this->unregisterHook('displayNav') ||
             !$this->unregisterHook('displayLeftColumn') ||
