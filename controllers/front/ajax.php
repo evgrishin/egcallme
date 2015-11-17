@@ -1,8 +1,5 @@
 <?php
-/**
-*  @author Evgeny Grishin <e.v.grishin@yandex.ru>
-*  @copyright  2015 Evgeny grishin
-*/
+
 
 class EgcallmeajaxModuleFrontController extends ModuleFrontController
 {
@@ -16,7 +13,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         
         $action = Tools::getValue('action');
         
-        
+        $view = '';
         if (!$action) {
             $view = 'form';
         } else {
@@ -44,8 +41,8 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
     {
         // insert to DB
         $query = "insert into "._DB_PREFIX_.egcallme::INSTALL_SQL_BD1NAME." 
-        (`id_shop`, `phone`, `fname`,`lname`, `message`) 
-        values ('".(int)$context->shop->id."', '".$phone."',
+        (`id_shop`, `host`, `phone`, `fname`,`lname`, `message`) 
+        values ('".(int)$context->shop->id."', '".Tools::getHttpHost()."', '".$phone."',
             '".$fname."','".$lname."', '".$message."')";
         Db::getInstance()->execute(trim($query));
         
@@ -71,7 +68,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
                     $email_theme,
                     Mail::l("NEW Callback ".$phone, $this->context->language->id),
                     $param,
-                    $email,
+                    trim($email),
                     "",
                     null,
                     null,

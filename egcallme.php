@@ -14,9 +14,10 @@ class Egcallme extends Module
     private $html = '';
 
     /**
-     * 1)translations
-     * 2)tab for maintanence
+     * 1) translations
+     * 2) tab for maintanence
      * 4) comments for configurations
+     * 5) sand to telegram bot
      * Enter description here ...
      */
     public function __construct()

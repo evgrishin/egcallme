@@ -9,7 +9,7 @@
 	<h3>{l s='order call back' mod='egcallme'}</h3>
 	<div class="clearfix">
 		<label for="eg_phone">{l s='phone' mod='egcallme'}*</label>
-			<input class="form-control grey validate required" type="phone" placeholder="{$mask|escape:'htmlall':'UTF-8}" id="eg_phone" name="eg_phone" maxlength="30">
+			<input class="form-control grey validate required" type="phone" placeholder="{$mask|escape:'htmlall':'UTF-8'}" id="eg_phone" name="eg_phone" maxlength="30">
 	</div>
 	{if $fname!='Hide'}
 	<div class="clearfix">
@@ -25,7 +25,7 @@
 	{/if}
 	<input type="hidden" id="ajax" name="ajax" value="">
 	<input type="hidden" id="action" name="action" value="new">
-	<input type="hidden" id="eg_urlaction" name="eg_urlaction" value="{$ajaxcontroller|escape:'htmlall':'UTF-8}">
+	<input type="hidden" id="eg_urlaction" name="eg_urlaction" value="{$ajaxcontroller|escape:'htmlall':'UTF-8'}">
 	{if $mess!='Hide'}
 	<label for="eg_message">{l s='message' mod='egcallme'}{if $mess=='Required'}*{/if}</label>
     	<textarea class="form-control{if $mess=='Required'} required{/if}" id="eg_message" name="eg_message"></textarea>
