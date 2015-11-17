@@ -4,7 +4,7 @@
 *  @copyright  2015 Evgeny grishin
 */
 
-class EgcallmeajaxModuleFrontController extends ModuleFrontController
+class EgcallmeFreeajaxModuleFrontController extends ModuleFrontController
 {
 
     public function initContent()
@@ -28,7 +28,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         
         
         $this->context->smarty->assign(array(
-                    'ajaxcontroller' => $this->context->link->getModuleLink('egcallme', 'ajax'),
+                    'ajaxcontroller' => $this->context->link->getModuleLink('egcallmefree', 'ajax'),
                     'fname' => Configuration::get('EGCALLMEFREE_FIELD_FNAME'),
                     'mess' => Configuration::get('EGCALLMEFREE_FIELD_MESS'),
                     'view' => $view
@@ -44,12 +44,12 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         if (trim($email)!="") {
             $param = array(
                 '{phone}'    => $phone,
-                 '{message}'    => $message,
+                '{message}'    => $message,
                 '{fname}'    => $fname
             );
 
-            $dir = egcallme::getModuleDir().'/mails/';
-                
+            $dir = EgcallmeFree::getModuleDir().'/mails/';
+ 
             Mail::Send(
                 (int)$context->language->id,
                 "email_notify",
