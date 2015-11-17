@@ -19,7 +19,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         
         if (!$action) {
             $view = 'form';
-        }else{
+        } else {
             $phone = Tools::getValue('eg_phone');
             $fname = Tools::getValue('eg_fname');
             $lname = Tools::getValue('eg_lname');
@@ -35,7 +35,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
                     'lname' => Configuration::get('EGCALLME_FIELD_LNAME'),
                     'mess' => Configuration::get('EGCALLME_FIELD_MESS'),
                     'view' => $view
-                )); 
+                ));
 
         $this->smartyOutputContent($this->getTemplatePath('ajax.tpl'));
     }
@@ -64,7 +64,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
 
             $dir = egcallme::getModuleDir().'/mails/';
                 
-            foreach ($emails as $email){
+            foreach ($emails as $email) {
                 $email_theme = "email_notify";
                 Mail::Send(
                     (int)$context->language->id,

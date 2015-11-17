@@ -276,7 +276,7 @@ class Egcallme extends Module
     public static function hex2rgb($hex)
     {
         $hex = str_replace("#", "", $hex);
-        if(Tools::strlen($hex) == 3) {
+        if (Tools::strlen($hex) == 3) {
             $r = hexdec(Tools::substr($hex, 0, 1).Tools::substr($hex, 0, 1));
             $g = hexdec(Tools::substr($hex, 1, 1).Tools::substr($hex, 1, 1));
             $b = hexdec(Tools::substr($hex, 2, 1).Tools::substr($hex, 2, 1));
@@ -284,7 +284,7 @@ class Egcallme extends Module
             $r = hexdec(Tools::substr($hex, 0, 2));
             $g = hexdec(Tools::substr($hex, 2, 2));
             $b = hexdec(Tools::substr($hex, 4, 2));
-            }
+        }
         return array($r, $g, $b);
     }
 
@@ -293,16 +293,14 @@ class Egcallme extends Module
         if ($keep) {
             if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
                 return false;
-            }
-            elseif (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
+            } elseif (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
                 return false;
             }
-            $sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), 
-            	array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
+            $sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'),
+                array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
             $sql = preg_split("/;\s*[\r\n]+/", trim($sql));
 
-            foreach ($sql as $query)
-            {
+            foreach ($sql as $query) {
                 if (!Db::getInstance()->execute(trim($query))) {
                     return false;
                 }
@@ -353,7 +351,7 @@ class Egcallme extends Module
     }
 
     
-      public function reset()
+    public function reset()
     {
         if (!$this->uninstall(false))
             return false;
@@ -368,5 +366,4 @@ class Egcallme extends Module
             DROP TABLE IF EXISTS
             `'._DB_PREFIX_.self::INSTALL_SQL_BD1NAME.'`');
     }
-
 }
