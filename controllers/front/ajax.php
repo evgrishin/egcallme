@@ -29,9 +29,8 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         
         $this->context->smarty->assign(array(
                     'ajaxcontroller' => $this->context->link->getModuleLink('egcallme', 'ajax'),
-                    'fname' => Configuration::get('EGCALLME_FIELD_FNAME'),
-                    'lname' => Configuration::get('EGCALLME_FIELD_LNAME'),
-                    'mess' => Configuration::get('EGCALLME_FIELD_MESS'),
+                    'fname' => Configuration::get('EGCALLMEFREE_FIELD_FNAME'),
+                    'mess' => Configuration::get('EGCALLMEFREE_FIELD_MESS'),
                     'view' => $view
                 ));
 
@@ -40,7 +39,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
 
     private function newMessage($phone, $fname, $message, $context)
     {
-        $email = Configuration::get('EGCALLME_EMAIL_NOTIFY');
+        $email = Configuration::get('EGCALLMEFREE_EMAIL_NOTIFY');
 
         if (trim($email)!="") {
             $param = array(
