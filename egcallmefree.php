@@ -175,7 +175,7 @@ class EgcallmeFree extends Module
         return dirname(__FILE__);
     }
 
-    public function install($keep = true)
+    public function install()
     {
         if (!parent::install() ||
         !$this->registerHook('displayNav') ||
@@ -200,16 +200,18 @@ class EgcallmeFree extends Module
             !$this->unregisterHook('displayRightColumn') ||
             !$this->unregisterHook('header'))
         return false;
-      return true;
+        return true;
     }
 
     
     public function reset()
     {
-        if (!$this->uninstall(false))
+        if (!$this->uninstall(false)) {
             return false;
-        if (!$this->install(false))
+        }
+        if (!$this->install(false)) {
             return false;
+        }
         return true;
     }
 }
