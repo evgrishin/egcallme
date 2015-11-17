@@ -140,6 +140,7 @@ class EgcallmeFree extends Module
     {
         $this->context->controller->addJS($this->_path.'views/js/callme.js', 'all');
         $this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');
+        $this->context->controller->addCSS($this->_path.'views/css/callme.css', 'all');
     }
 
     public function hookDisplayNav($params)
