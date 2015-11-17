@@ -26,7 +26,7 @@ class Egcallme extends Module
         $this->version = '0.1.1';
         $this->author = 'Evgeny Grishin';
         $this->need_instance = 0;
-        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_); 
+        $this->ps_versions_compliancy = array('min' => '1.6', 'max' => _PS_VERSION_);
         $this->bootstrap = true;
         $this->html = '';
 
@@ -37,12 +37,11 @@ class Egcallme extends Module
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
 
-      }    
+    }
 
-      public function getContent()
+    public function getContent()
     {
-        if (Tools::isSubmit('submitEgcallme'))
-        {
+        if (Tools::isSubmit('submitEgcallme')) {
             Configuration::updateValue('EGCALLME_BTN_VIEW', Tools::getValue('button_type'));
             Configuration::updateValue('EGCALLME_BTN_SELF', Tools::getValue('button_code'));
             Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', Tools::getValue('email_notify'));
@@ -91,12 +90,12 @@ class Egcallme extends Module
                         'type' => 'text',
                         'label' => $this->l('Emails for notifications:'),
                         'name' => 'email_notify',
-                    ),                                        
+                    ),
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
                 )
-            ),        
+            ),
         );
 
         $fields_form2 = array(
@@ -129,8 +128,8 @@ class Egcallme extends Module
                 'submit' => array(
                     'title' => $this->l('Save'),
                 )
-            ),            
-        );    
+            ),
+        );
 
         $fields_form3 = array(
             'form' => array(
@@ -143,7 +142,7 @@ class Egcallme extends Module
                         'type' => 'text',
                         'label' => $this->l('Phone mask:'),
                         'name' => 'mask',
-                    ),                
+                    ),
                     array(
                         'type' => 'select',
                         'label' => $this->l('First name:'),
@@ -171,7 +170,7 @@ class Egcallme extends Module
                         'id' => 'id',
                         'name' => 'name'
                         ),
-                    ),                        
+                    ),
                     array(
                         'type' => 'select',
                         'label' => $this->l('Message:'),
@@ -186,12 +185,12 @@ class Egcallme extends Module
                         'name' => 'name'
                         ),
                     ),
-                ),                        
+                ),
                 'submit' => array(
                     'title' => $this->l('Save'),
                 )
-            ),            
-        );            
+            ),
+        );
 
         $helper = new HelperForm();
         $helper->show_toolbar = false;
@@ -211,13 +210,13 @@ class Egcallme extends Module
             'id_language' => $this->context->language->id
         );
 
-        return $helper->generateForm(array($fields_form1, $fields_form2, $fields_form3));        
+        return $helper->generateForm(array($fields_form1, $fields_form2, $fields_form3));
     }
 
-      public function getConfigFieldsValues()
+    public function getConfigFieldsValues()
     {
         return array(
-            'button_type' => Tools::getValue('button_type', Configuration::get('EGCALLME_BTN_VIEW')), 
+            'button_type' => Tools::getValue('button_type', Configuration::get('EGCALLME_BTN_VIEW')),
             'button_code' => Tools::getValue('button_code', Configuration::get('EGCALLME_BTN_SELF')),
             'email_notify' => Tools::getValue('email_notify', Configuration::get('EGCALLME_EMAIL_NOTIFY')),
             'button_type_tube' => Tools::getValue('button_type_tube', Configuration::get('EGCALLME_PHONE_TUBE')),
@@ -228,15 +227,14 @@ class Egcallme extends Module
             'message' => Tools::getValue('message', Configuration::get('EGCALLME_FIELD_MESS')),
         );
     }
-    
-      public function hookHeader($params)
+
+    public function hookHeader($params)
     {
-        if (Configuration::get('EGCALLME_PHONE_MASK'))
-        {
+        if (Configuration::get('EGCALLME_PHONE_MASK')) {
             $this->context->controller->addJS($this->_path.'views/js/jquery.maskedinput.min.js', 'all');
-        }        
+        }
         $this->context->controller->addJS($this->_path.'views/js/callme.js', 'all');
-        $this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');        
+        $this->context->controller->addJS($this->_path.'views/js/jquery.validate.min.js', 'all');
     }
 
     public function hookDisplayNav($params)
@@ -247,7 +245,7 @@ class Egcallme extends Module
              'btn_self' => Configuration::get('EGCALLME_BTN_SELF'),
              'mask' => Configuration::get('EGCALLME_PHONE_MASK'),
              'phone_color' => str_replace("#", "", Configuration::get('EGCALLME_PHONE_TUBE_C')),
-            'ajaxcontroller' => $this->context->link->getModuleLink($this->name, 'ajax'),
+             'ajaxcontroller' => $this->context->link->getModuleLink($this->name, 'ajax'),
              'rgb' => egcallme::hex2rgb(Configuration::get('EGCALLME_PHONE_TUBE_C')),
         ));
 
@@ -260,8 +258,8 @@ class Egcallme extends Module
         return $this->hookDisplayNav($params);
     }
 
-      public function hookDisplayLeftColumn($params)
-    {    
+    public function hookDisplayLeftColumn($params)
+    {
         return $this->hookDisplayNav($params);
     }
 
@@ -282,7 +280,7 @@ class Egcallme extends Module
             $r = hexdec(Tools::substr($hex, 0, 1).Tools::substr($hex, 0, 1));
             $g = hexdec(Tools::substr($hex, 1, 1).Tools::substr($hex, 1, 1));
             $b = hexdec(Tools::substr($hex, 2, 1).Tools::substr($hex, 2, 1));
-        }else{
+        } else {
             $r = hexdec(Tools::substr($hex, 0, 2));
             $g = hexdec(Tools::substr($hex, 2, 2));
             $b = hexdec(Tools::substr($hex, 4, 2));
@@ -296,10 +294,11 @@ class Egcallme extends Module
             if (!file_exists(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
                 return false;
             }
-            else if (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
+            elseif (!$sql = Tools::file_get_contents(dirname(__FILE__).'/'.self::INSTALL_SQL_FILE)) {
                 return false;
             }
-            $sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
+            $sql = str_replace(array('PREFIX_', 'ENGINE_TYPE', 'DB1NAME'), 
+            	array(_DB_PREFIX_, _MYSQL_ENGINE_, self::INSTALL_SQL_BD1NAME), $sql);
             $sql = preg_split("/;\s*[\r\n]+/", trim($sql));
 
             foreach ($sql as $query)
@@ -315,11 +314,14 @@ class Egcallme extends Module
         !$this->registerHook('displayNav') ||
         !$this->registerHook('header') ||
         !Configuration::updateValue('EGCALLME_BTN_VIEW', 'Link')||//Hide|Link|Button|Self
-        !Configuration::updateValue('EGCALLME_BTN_SELF', '<div class="clearfix pull-left"><button class="eg_callme_btn" type="button">Custom callback button</button></div>')||//textarea code
+        !Configuration::updateValue('EGCALLME_BTN_SELF', '<div class="clearfix pull-left">
+        <button class="eg_callme_btn" type="button">
+        Custom callback button</button></div>')||//textarea code
         !Configuration::updateValue('EGCALLME_PHONE_MASK', '+4 (999) 999-99-99')||
         !Configuration::updateValue('EGCALLME_PHONE_TUBE', 'Show')||//Hide|Show|Animation
         !Configuration::updateValue('EGCALLME_PHONE_TUBE_C', '68cafa')||//Color
-        !Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', 'first.mail@domain.com; second.mail@domain.com')||//list of emails ";"
+        !Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', 'first.mail@domain.com; 
+        second.mail@domain.com')||//list of emails ";"
         !Configuration::updateValue('EGCALLME_FIELD_FNAME', 'Required')||//Hide|Show|Required
         !Configuration::updateValue('EGCALLME_FIELD_LNAME', 'Required')||//Hide|Show|Required
         !Configuration::updateValue('EGCALLME_FIELD_MESS', 'Required')//Hide|Show|Required

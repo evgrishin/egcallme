@@ -17,12 +17,9 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         $action = Tools::getValue('action');
         
         
-        if (!$action)
-        {
+        if (!$action) {
             $view = 'form';
-        }
-        else
-        {
+        }else{
             $phone = Tools::getValue('eg_phone');
             $fname = Tools::getValue('eg_fname');
             $lname = Tools::getValue('eg_lname');
@@ -41,7 +38,6 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
                 )); 
 
         $this->smartyOutputContent($this->getTemplatePath('ajax.tpl'));
-        
     }
 
     private function newMessage($phone, $fname, $lname, $message, $context)
@@ -56,22 +52,19 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         // notify by email
         $emails_param = Configuration::get('EGCALLME_EMAIL_NOTIFY');
 
-        if (trim($emails_param)!="")
-        {    
+        if (trim($emails_param)!="") {
             $param = array(
                 '{phone}'    => $phone,
                  '{message}'    => $message,
                 '{fname}'    => $fname,
                 '{lname}'    => $lname
             );
-                
+
             $emails = explode(';', $emails_param);
-            
+
             $dir = egcallme::getModuleDir().'/mails/';
                 
-            foreach ($emails as $email)
-            {
-                
+            foreach ($emails as $email){
                 $email_theme = "email_notify";
                 Mail::Send(
                     (int)$context->language->id,
@@ -88,10 +81,7 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
                     false,
                     (int)$context->shop->id
                 );
-                
             }
         }
-
     }
-    
 }
