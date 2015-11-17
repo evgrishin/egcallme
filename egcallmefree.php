@@ -1,10 +1,16 @@
 <?php
 /**
-*  @author Evgeny Grishin <e.v.grishin@yandex.ru>
-*  @copyright  2015 Evgeny grishin
-*/
-if (!defined('_PS_VERSION_')) exit;
+ *  Leo Theme for Prestashop 1.6.x
+ *
+ * @author    http://www.leotheme.com
+ * @copyright Copyright (C) October 2013 LeoThemes.com <@emai:leotheme@gmail.com>
+ *               <info@leotheme.com>.All rights reserved.
+ * @license   GNU General Public License version 2
+ */
 
+if (!defined('_PS_VERSION_')) {
+    exit;
+}
 class EgcallmeFree extends Module
 {
     private $html = '';
@@ -176,30 +182,25 @@ class EgcallmeFree extends Module
 
     public function install()
     {
-        if (!parent::install() ||
-        !$this->registerHook('displayNav') ||
-        !$this->registerHook('header') ||
-        !Configuration::updateValue('EGCALLMEFREE_BTN_VIEW', 'Show')||#68cafa
-        !Configuration::updateValue('EGCALLMEFREE_PHONE_TUBE', 'Show')||
-        !Configuration::updateValue('EGCALLMEFREE_EMAIL_NOTIFY', 'mail@domain.com')
-        )
-            return false;
-        return true;
+        $this->registerHook('displayNav');
+        $this->registerHook('header');
+        Configuration::updateValue('EGCALLMEFREE_BTN_VIEW', 'Show');
+        Configuration::updateValue('EGCALLMEFREE_PHONE_TUBE', 'Show');
+        Configuration::updateValue('EGCALLMEFREE_EMAIL_NOTIFY', 'mail@domain.com');
+        return parent::install();
     }
 
-    public function uninstall($keep = true)
+    public function uninstall()
     {
-      if (!parent::uninstall() || ($keep && !$this->deleteTables()) ||
-            !Configuration::deleteByName('EGCALLMEFREE_BTN_VIEW') ||
-            !Configuration::deleteByName('EGCALLMEFREE_PHONE_TUBE') ||
-            !Configuration::deleteByName('EGCALLMEFREE_EMAIL_NOTIFY')||
-            !$this->unregisterHook('displayTop') ||
-            !$this->unregisterHook('displayNav') ||
-            !$this->unregisterHook('displayLeftColumn') ||
-            !$this->unregisterHook('displayRightColumn') ||
-            !$this->unregisterHook('header'))
-        return false;
-        return true;
+        Configuration::deleteByName('EGCALLMEFREE_BTN_VIEW');
+        Configuration::deleteByName('EGCALLMEFREE_PHONE_TUBE');
+        Configuration::deleteByName('EGCALLMEFREE_EMAIL_NOTIFY');
+        $this->unregisterHook('displayTop');
+        $this->unregisterHook('displayNav');
+        $this->unregisterHook('displayLeftColumn');
+        !$this->unregisterHook('displayRightColumn');
+        $this->unregisterHook('header');
+        return parent::uninstall();
     }
 
     
