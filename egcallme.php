@@ -11,13 +11,13 @@ class Egcallme extends Module
 {
     const INSTALL_SQL_FILE = 'install.sql';
     const INSTALL_SQL_BD1NAME = 'egcallme';
+    const INSTALL_SQL_BD2NAME = 'egmultishop_url';
+    const ADMIN_TAB = 'AdminEGCallBack';
     private $html = '';
 
     /**
      * 1) translations
      * 2) tab for maintanence
-     * 4) comments for configurations
-     * 5) sand to telegram bot
      * Enter description here ...
      */
     public function __construct()
@@ -51,6 +51,8 @@ class Egcallme extends Module
             Configuration::updateValue('EGCALLME_PHONE_MASK', Tools::getValue('mask'));
             Configuration::updateValue('EGCALLME_FIELD_FNAME', Tools::getValue('fname'));
             Configuration::updateValue('EGCALLME_FIELD_LNAME', Tools::getValue('lname'));
+            Configuration::updateValue('EGCALLME_HTTPNOT_1', Tools::getValue('http_note_1'));
+            Configuration::updateValue('EGCALLME_HTTPNOT_2', Tools::getValue('http_note_2'));
             Configuration::updateValue('EGCALLME_FIELD_MESS', Tools::getValue('message'));
             $this->html .= $this->displayConfirmation($this->l('Settings updated.'));
         }
@@ -64,13 +66,14 @@ class Egcallme extends Module
             'form' => array(
                 'legend' => array(
                     'title' => $this->l('Callback button'),
-                    'icon' => 'icon-cogs'
+                    'icon' => 'icon-cogs',
                 ),
                 'input' => array(
                     array(
                         'type' => 'select',
                         'label' => $this->l('Type of button :'),
                         'name' => 'button_type',
+                        'desc' => $this->l('Select view of your callback button.'),
                         'options' => array(
                         'query' => array(
                                     0 => array('id' => 'Hide', 'name' => $this->l('Hide')),
@@ -79,7 +82,7 @@ class Egcallme extends Module
                                     //3 => array('id' => 'Self', 'name' => $this->l('Self')),
                                     ),
                         'id' => 'id',
-                        'name' => 'name'
+                        'name' => 'name',
                         ),
                     ),
                     /*array(
@@ -91,7 +94,22 @@ class Egcallme extends Module
                         'type' => 'text',
                         'label' => $this->l('Emails for notifications:'),
                         'name' => 'email_notify',
+                    	'desc' => $this->l('Specify multiple email through a separator ";".'),
                     ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Http Notification 1:'),
+                        'name' => 'http_note_1',
+                        'hint' => $this->l('Specify some http request 1.'),
+                        'desc' => $this->l('Example for sms: http://sms.ru/send?api_id=999&to=+412345678&text={message}. {message} is defined keywords will be replased.'),
+                    ),
+                    array(
+                        'type' => 'text',
+                        'label' => $this->l('Http Notification 2:'),
+                        'name' => 'http_note_2',
+                        'hint' => $this->l('Specify some http request 2.'),
+                        'desc' => $this->l('Example for telegram: http://api.telegram.org/yourBotId/sendMessage?chat_id=999&text={message}. {message} is defined keywords will be replased.'),
+                    ),                                                            
                 ),
                 'submit' => array(
                     'title' => $this->l('Save'),
@@ -110,6 +128,7 @@ class Egcallme extends Module
                         'type' => 'select',
                         'label' => $this->l('Tube button:'),
                         'name' => 'button_type_tube',
+                        'desc' => $this->l('View additional Tube button.'),
                         'options' => array(
                         'query' => array(
                                     0 => array('id' => 'No', 'name' => $this->l('No')),
@@ -124,6 +143,7 @@ class Egcallme extends Module
                         'type' => 'text',
                         'label' => $this->l('Tube color:'),
                         'name' => 'tube_color',
+                        'desc' => $this->l('Specify color of your tube(hex value). Example #FF0000'),
                     ),
                 ),
                 'submit' => array(
@@ -143,11 +163,13 @@ class Egcallme extends Module
                         'type' => 'text',
                         'label' => $this->l('Phone mask:'),
                         'name' => 'mask',
+                        'desc' => $this->l('Set the input mask for a telephone number. Example: +4 (999) 999-99-99'),
                     ),
                     array(
                         'type' => 'select',
                         'label' => $this->l('First name:'),
                         'name' => 'fname',
+                        'desc' => $this->l('Hide, Show or require Fist name field.'),
                         'options' => array(
                         'query' => array(
                                     0 => array('id' => 'Hide', 'name' => $this->l('Hide')),
@@ -162,29 +184,31 @@ class Egcallme extends Module
                         'type' => 'select',
                         'label' => $this->l('Last name:'),
                         'name' => 'lname',
+                        'desc' => $this->l('Hide, Show or require Last name field.'),
                         'options' => array(
                         'query' => array(
                                     0 => array('id' => 'Hide', 'name' => $this->l('Hide')),
                                     1 => array('id' => 'Show', 'name' => $this->l('Show')),
                                     2 => array('id' => 'Required', 'name' => $this->l('Required')),
                                     ),
-                        'id' => 'id',
-                        'name' => 'name'
-                        ),
+	                        'id' => 'id',
+	                        'name' => 'name'
+	                        ),
                     ),
                     array(
                         'type' => 'select',
                         'label' => $this->l('Message:'),
                         'name' => 'message',
+                        'desc' => $this->l('Hide, Show or require Message field.'),
                         'options' => array(
                         'query' => array(
                                     0 => array('id' => 'Hide', 'name' => $this->l('Hide')),
                                     1 => array('id' => 'Show', 'name' => $this->l('Show')),
                                     2 => array('id' => 'Required', 'name' => $this->l('Required')),
                                     ),
-                        'id' => 'id',
-                        'name' => 'name'
-                        ),
+	                        'id' => 'id',
+	                        'name' => 'name'
+	                        ),
                     ),
                 ),
                 'submit' => array(
@@ -226,8 +250,36 @@ class Egcallme extends Module
             'fname' => Tools::getValue('fname', Configuration::get('EGCALLME_FIELD_FNAME')),
             'lname' => Tools::getValue('lname', Configuration::get('EGCALLME_FIELD_LNAME')),
             'message' => Tools::getValue('message', Configuration::get('EGCALLME_FIELD_MESS')),
+        	'http_note_1' => Tools::getValue('http_note_1', Configuration::get('EGCALLME_HTTPNOT_1')),
+        	'http_note_2' => Tools::getValue('http_note_2', Configuration::get('EGCALLME_HTTPNOT_2')),
         );
     }
+    
+  	public function installAdminTab()
+	{
+		$tab = new Tab();
+		$tab->active = 1;
+		$languages = Language::getLanguages(false);
+		if (is_array($languages))
+			foreach ($languages as $language)
+				$tab->name[$language['id_lang']] = 'Callback admin';
+		$tab->class_name = self::ADMIN_TAB;
+		$tab->module = $this->name;
+		$tab->id_parent = 10;
+		return (bool)$tab->add();
+	}    
+	
+	public static function uninstallAdminTab()
+	{
+		$idTab = Tab::getIdFromClassName(self::ADMIN_TAB);
+		if ($idTab != 0)
+		{
+			$tab = new Tab($idTab);
+			$tab->delete();
+			return true;
+		}
+		return false;
+	}	
 
     public function hookHeader($params)
     {
@@ -242,6 +294,7 @@ class Egcallme extends Module
     {
          $this->smarty->assign(array(
              'btn_view' => Configuration::get('EGCALLME_BTN_VIEW'),
+             'phone' => $this->getSitePhone(),
              'phone_tube' => Configuration::get('EGCALLME_PHONE_TUBE'),
              'btn_self' => Configuration::get('EGCALLME_BTN_SELF'),
              'mask' => Configuration::get('EGCALLME_PHONE_MASK'),
@@ -289,6 +342,25 @@ class Egcallme extends Module
         return array($r, $g, $b);
     }
 
+    private function getSitePhone()
+    {
+    	$sql = 'SHOW TABLES LIKE "'._DB_PREFIX_.'egmultishop_url"';
+
+		if (!$links = Db::getInstance()->executeS($sql)) {
+			return '';
+		} else {
+		    $sql = 'SELECT phone FROM `'._DB_PREFIX_.'shop_url` su
+			INNER JOIN `'._DB_PREFIX_.'egmultishop_url` mu ON
+				mu.`id_url`=su.`id_shop_url`
+			WHERE su.domain =\''.Tools::getHttpHost().'\'';
+		    
+		    if (!$links = Db::getInstance()->executeS($sql)) {
+		    	return '';
+		    }
+		}
+        return $links[0]['phone'];
+    }
+
     public function install($keep = true)
     {
         if ($keep) {
@@ -312,6 +384,7 @@ class Egcallme extends Module
         if (!parent::install() ||
         !$this->registerHook('displayNav') ||
         !$this->registerHook('header') ||
+        !$this->installAdminTab()||
         !Configuration::updateValue('EGCALLME_BTN_VIEW', 'Link')||//Hide|Link|Button|Self
         !Configuration::updateValue('EGCALLME_BTN_SELF', '<div class="clearfix pull-left">
         <button class="eg_callme_btn" type="button">
@@ -321,6 +394,8 @@ class Egcallme extends Module
         !Configuration::updateValue('EGCALLME_PHONE_TUBE_C', '68cafa')||//Color
         !Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', 'first.mail@domain.com; 
         second.mail@domain.com')||//list of emails ";"
+        !Configuration::updateValue('EGCALLME_HTTPNOT_1', '')||
+        !Configuration::updateValue('EGCALLME_HTTPNOT_2', '')||
         !Configuration::updateValue('EGCALLME_FIELD_FNAME', 'Required')||//Hide|Show|Required
         !Configuration::updateValue('EGCALLME_FIELD_LNAME', 'Required')||//Hide|Show|Required
         !Configuration::updateValue('EGCALLME_FIELD_MESS', 'Required')//Hide|Show|Required
@@ -332,11 +407,14 @@ class Egcallme extends Module
     public function uninstall($keep = true)
     {
       if (!parent::uninstall() || ($keep && !$this->deleteTables()) ||
+      		!$this->uninstallAdminTab()||
             !Configuration::deleteByName('EGCALLME_BTN_VIEW') ||
             !Configuration::deleteByName('EGCALLME_BTN_SELF') ||
             !Configuration::deleteByName('EGCALLME_PHONE_MASK') ||
             !Configuration::deleteByName('EGCALLME_PHONE_TUBE') ||
             !Configuration::deleteByName('EGCALLME_PHONE_TUBE_C') ||
+            !Configuration::deleteByName('EGCALLME_HTTPNOT_1') ||
+            !Configuration::deleteByName('EGCALLME_HTTPNOT_2') ||
             !Configuration::deleteByName('EGCALLME_EMAIL_NOTIFY')||
             !Configuration::deleteByName('EGCALLME_FIELD_FNAME')||
             !Configuration::deleteByName('EGCALLME_FIELD_LNAME') ||

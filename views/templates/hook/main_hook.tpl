@@ -9,8 +9,11 @@
 {/if}	
 {/strip}
 {if $btn_view=='Link'}
-<div class="clearfix pull-left">
-	<a class="eg_callme_btn" href="#" rel="#">{l s='call me order' mod='egcallme'}</a>
+<div class="clearfix pull-left" style="text-align: center; margin: 0px 60px;height: 65px;">
+{if $phone!=''}
+<div class="phone" style="color:white;">{$phone|escape:'html':'UTF-8'}</div>
+{/if}
+<div><a class="eg_callme_btn" href="#" rel="#">{l s='call me order' mod='egcallme'}</a></div>
 </div>
 {/if}
 {if $btn_view=='Button'}

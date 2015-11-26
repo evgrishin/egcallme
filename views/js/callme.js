@@ -30,7 +30,7 @@ $(document).ready(function() {
 		         data: eg_form.serialize(),
 		         success: function(data) {
 		        	 eg_form.fadeOut("fast", function(){
-		        		 $("#eg_callmemess").html(data);
+		        		 $("#eg_callmemess").show();
 		        		 setTimeout("$.fancybox.close()", 1500);
 		        	 });
 		         }

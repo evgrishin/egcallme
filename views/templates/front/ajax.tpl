@@ -3,7 +3,7 @@
 *  @copyright  2015 Evgeny grishin
 *}
 {if $view=="form"}
-<div id="eg_callmemess"></div>
+<div id="eg_callmemess" style="display:none;">{l s='submited' mod='egcallme'}</div>
 <form id="eg_callmeform" name="eg_callmeform" action="#" method="post">
 <fieldset>
 	<h3>{l s='order call back' mod='egcallme'}</h3>
@@ -42,6 +42,4 @@ $("#eg_phone").mask(egcallme_mask);
 {/if}
 $.validator.messages.required = "{l s='Field is required!' mod='egcallme'}";
 </script>
-{else}
-<span>{l s='submited' mod='egcallme'}</span>
 {/if}
