@@ -4,19 +4,102 @@
 class AdminEGCallBackController extends ModuleAdminController
 {
 	
-	private	$ormprod;
+
 	
 	public function __construct()
 	{
 		$this->bootstrap = true;
-		$this->display = 'view';
+		//$this->display = 'view';
+		$this->table = 'egcallme';
 		$this->meta_title = $this->l('Your Merchant Expertise');
-		
-		parent::__construct();
-		if (!$this->module->active)
-			Tools::redirectAdmin($this->context->link->getAdminLink('AdminHome'));
-	}
 
+		$this->fields_list = array(
+			'id_'.$this->table => array(
+				'title' => $this->l('ID'),
+				'align' => 'center',
+				'width' => 50,
+				'class' => 'fixed-width-xs'
+			),	
+			'host' => array(
+				'title' => $this->l('Host'),
+				'filter_key' => 'a!host',
+				'type' => 'text',
+				'width' => 70,
+			),	
+			'type' => array(
+				'title' => $this->l('Type'),
+				'filter_key' => 'a!type',
+				'type' => 'text',
+				'width' => 50,
+			),
+			'date_call' => array(
+				'title' => $this->l('Date'),
+				'filter_key' => 'a!date_call',
+				'type' => 'datetime',
+				'width' => 100,
+			),	
+			'message' => array(
+				'title' => $this->l('Message'),
+				'filter_key' => 'a!message',
+				'type' => 'text',
+				'width' => 150,
+			),
+			'status' => array(
+				'title' => $this->l('Status'),
+				'filter_key' => 'a!status',
+				'type' => 'text',
+				'width' => 50,
+			),																						
+			);	
+
+		$this->bulk_actions = array(
+			'delete' => array(
+				'text' => $this->l('Delete selected'),
+				'confirm' => $this->l('Delete selected items?'),
+				'icon' => 'icon-trash'
+			),
+			'correctlink' => array(
+				'text' => $this->l('Correct Image Link'),
+				'confirm' => $this->l('Are you sure you want to change image url from old theme to new theme?'),
+				'icon' => 'icon-edit'
+			),
+			'insertLang' => array(
+				'text' => $this->l('Auto Input Data for New Lang'),
+				'confirm' => $this->l('Auto insert data for new language?'),
+				'icon' => 'icon-edit'
+			),
+			'correctContent' => array(
+				'text' => $this->l('Correct Content use basecode64(Just for developer)'),
+				'confirm' => $this->l('Are you sure?'),
+				'icon' => 'icon-edit'
+			),			
+			);			
+		parent::__construct();
+		//$this->_where = ' AND id_shop='.(int)($this->context->shop->id);
+		$this->_theme_dir = Context::getContext()->shop->getTheme();
+	}
+	
+	public function renderList()
+	{
+		$this->initToolbar();
+		$this->addRowAction('edit');
+		$this->addRowAction('delete');
+		return parent::renderList();
+	}
+	
+	public function renderForm()
+	{
+		if (!$this->loadObject(true))
+			return;
+		if (Validate::isLoadedObject($this->object))
+			$this->display = 'edit';
+		else
+			$this->display = 'add';
+		$this->initToolbar();
+		$this->context->controller->addJqueryUI('ui.sortable');
+		//return $this->_showWidgetsSetting();
+	}	
+/*******************************************************************/
 	public function ajaxProcessInsertProductInfo()
 	{
 		$this->ormprod = new egormprod();

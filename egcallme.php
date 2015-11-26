@@ -390,7 +390,7 @@ class Egcallme extends Module
         <button class="eg_callme_btn" type="button">
         Custom callback button</button></div>')||//textarea code
         !Configuration::updateValue('EGCALLME_PHONE_MASK', '+4 (999) 999-99-99')||
-        !Configuration::updateValue('EGCALLME_PHONE_TUBE', 'Show')||//Hide|Show|Animation
+        !Configuration::updateValue('EGCALLME_PHONE_TUBE', 'Animation')||//Hide|Show|Animation
         !Configuration::updateValue('EGCALLME_PHONE_TUBE_C', '68cafa')||//Color
         !Configuration::updateValue('EGCALLME_EMAIL_NOTIFY', 'first.mail@domain.com; 
         second.mail@domain.com')||//list of emails ";"
