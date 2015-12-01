@@ -36,13 +36,22 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
 
         $this->smartyOutputContent($this->getTemplatePath('ajax.tpl'));
     }
+    
+    private function replaceKeywords($params, $request)
+    {
+    	foreach ($params as $key => $value) {
+    		$request = str_replace($key,$value,$request);
+    	}
+    	return urlencode($request);
+    }
 
     private function newMessage($phone, $fname, $lname, $message, $context)
     {
+    	$host = Tools::getHttpHost();
         // insert to DB
         $query = "insert into "._DB_PREFIX_.egcallme::INSTALL_SQL_BD1NAME." 
         (`id_shop`, `host`, `type`, `phone`, `fname`,`lname`, `message`) 
-        values ('".(int)$context->shop->id."', '".Tools::getHttpHost()."', 'callback', '".$phone."',
+        values ('".(int)$context->shop->id."', '".$host."', 'callback', '".$phone."',
             '".$fname."','".$lname."', '".$message."')";
         Db::getInstance()->execute(trim($query));
         
@@ -52,9 +61,10 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         if (trim($emails_param)!="") {
             $param = array(
                 '{phone}'    => $phone,
-                 '{message}'    => $message,
+                '{message}'    => $message,
                 '{fname}'    => $fname,
-                '{lname}'    => $lname
+                '{lname}'    => $lname,
+            	'{host}' => $host
             );
 
             $emails = explode(';', $emails_param);
@@ -79,19 +89,17 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
                     (int)$context->shop->id
                 );
             }
-            $phone = "+".preg_replace('#\D+#', '', $phone);          
+            $phone = preg_replace('#\D+#', '', $phone);          
 
-            $http_message = "CallBack ".$host." ".$phone." ".$fname." ".$lname." ".$message;
-            $http_message = urlencode($http_message);
-            if (Configuration::get('EGCALLME_HTTPNOT_1')!='') {
-            	$request = str_replace('{message}', $http_message, Configuration::get('EGCALLME_HTTPNOT_1'));
+ 			$requests = Configuration::getMultiple(array(
+									'EGCALLME_HTTPNOT_1',
+									'EGCALLME_HTTPNOT_2',
+									'EGCALLME_HTTPNOT_3'
+						));
+			foreach ($requests as $request) {
+            	$request = $this->replaceKeywords($param, $request);
             	$result = file_get_contents($request);
-            }
-            if (Configuration::get('EGCALLME_HTTPNOT_2')!='') {
-            	$request = str_replace('{message}', $http_message, Configuration::get('EGCALLME_HTTPNOT_2'));
-            	$result = file_get_contents($request);
-            }
-            
+			}           
         }
     }
 }

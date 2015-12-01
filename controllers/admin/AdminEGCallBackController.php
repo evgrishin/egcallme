@@ -3,9 +3,7 @@
 
 class AdminEGCallBackController extends ModuleAdminController
 {
-	
 
-	
 	public function __construct()
 	{
 		$this->bootstrap = true;
