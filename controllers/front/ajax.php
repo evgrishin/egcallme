@@ -37,14 +37,19 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
         $this->smartyOutputContent($this->getTemplatePath('ajax.tpl'));
     }
     
-    private function replaceKeywords($params, $request)
+    private function replaceKeywords($params, $request, $text)
     {
+      	foreach ($params as $key => $value) {
+    		$text = str_replace($key,$value,$text);
+    	}
+    	
     	foreach ($params as $key => $value) {
     		$request = str_replace($key,$value,$request);
     	}
-    	return urlencode($request);
+    	$request = str_replace('{text}',urlencode($text),$request);
+    	return $request;
     }
-
+    	
     private function newMessage($phone, $fname, $lname, $message, $context)
     {
     	$host = Tools::getHttpHost();
@@ -89,15 +94,20 @@ class EgcallmeajaxModuleFrontController extends ModuleFrontController
                     (int)$context->shop->id
                 );
             }
-            $phone = preg_replace('#\D+#', '', $phone);          
+            $param['{phone}'] = preg_replace('#\D+#', '', $param['{phone}']);          
 
  			$requests = Configuration::getMultiple(array(
 									'EGCALLME_HTTPNOT_1',
 									'EGCALLME_HTTPNOT_2',
 									'EGCALLME_HTTPNOT_3'
 						));
-			foreach ($requests as $request) {
-            	$request = $this->replaceKeywords($param, $request);
+            $texts = Configuration::getMultiple(array(
+									'EGCALLME_HTTPNOT_1_TXT',
+									'EGCALLME_HTTPNOT_2_TXT',
+									'EGCALLME_HTTPNOT_3_TXT'
+						));	
+			foreach ($requests as $key => $request) {
+            	$request = $this->replaceKeywords($param, $request, $texts[$key.'_TXT']);
             	$result = file_get_contents($request);
 			}           
         }

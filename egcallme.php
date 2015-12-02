@@ -18,7 +18,6 @@ class Egcallme extends Module
     /**
      * 1) translations
      * 2) tab for maintanence
-     * 3) add EGCALLME_HTTPNOT_3
      * Enter description here ...
      */
     public function __construct()
